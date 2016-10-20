@@ -45,4 +45,18 @@ var moreCodeTable: [String: String] = ["A":".-",
                                        "9":"----.",
                                        "0":"-----"]
 
-print(moreCodeTable["."])
+
+func getInputStringFromCommandLine() -> String {
+    let uncheckedInputString = readLine()
+    let checkedInputString = uncheckedInputString ?? ""
+    if checkedInputString == "" {
+        print("there is no input from the command line")
+    }
+    return checkedInputString
+}
+
+func encodeMesageToMorseCode(_ string : String) -> String {
+    return("ToDo")
+}
+
+print(getInputStringFromCommandLine())
