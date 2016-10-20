@@ -2,8 +2,8 @@
 //  main.swift
 //  crypto_Ue1
 //
-//  Created by Trautmann, Phillip on 20.10.16.
-//  Copyright © 2016 Trautmann, Phillip. All rights reserved.
+//  Created by Trautmann, Phillip and Wendt, Ole on 20.10.16.
+//  Copyright © 2016 Trautmann, Phillip and Wendt, Ole. All rights reserved.
 //
 
 import Foundation
@@ -86,8 +86,6 @@ var morseCodeTableReverse: [String: Character] = [".-":"A",
                                        " ":" "]
 
 
-
-
 func getInputStringFromCommandLine() -> String {
     let uncheckedInputString = readLine()
     let checkedInputString = uncheckedInputString ?? ""
@@ -125,7 +123,9 @@ func translateMorseCodeToLetters(_ inputString: String) -> String {
     for currentWord in words {
         var componentsOfFirstWord = currentWord.components(separatedBy: " ")
         for currentLetter in componentsOfFirstWord {
-            resultString.append(translateOneLetter(symbol:currentLetter))
+            if currentLetter.characters.count > 0 {
+                resultString.append(translateOneLetter(symbol:currentLetter))
+            }
         }
         resultString.append(" ")
     }
@@ -133,16 +133,32 @@ func translateMorseCodeToLetters(_ inputString: String) -> String {
 }
 
 func encodeMesageToMorseCode () -> String {
+    print("plaintext please")
     let inputFromCommandLine = getInputStringFromCommandLine()
     let encodedMessage = translateLettersToMorseCode(inputFromCommandLine)
     return encodedMessage
 }
 
 func decodeSecretMessage () -> String{
+    print("cyphretext please")
     let inputFromCommandLine = getInputStringFromCommandLine()
     let decodeMessage = translateMorseCodeToLetters(inputFromCommandLine)
     return decodeMessage
 }
 
-//print(encodeMesageToMorseCode())
-print(decodeSecretMessage())
+func main() {
+    var close = false;
+    while (!close) {
+        print("Your Options: 'encrypt', 'decrypt' or 'exit'")
+        let inputFromCommandLine = getInputStringFromCommandLine()
+    if(inputFromCommandLine == "ENCRYPT"){
+        print(encodeMesageToMorseCode())
+    } else if (inputFromCommandLine == "DECRYPT") {
+            print(decodeSecretMessage())
+    } else if (inputFromCommandLine == "EXIT") {
+        close = true;
+        }
+    }
+}
+
+main()
