@@ -8,7 +8,7 @@
 
 import Foundation
 //Zwischen Buchstaben eine Leerstelle zwischen Wörtern zwei
-var moreCodeTable: [String: String] = ["A":".-",
+var morseCodeTable: [String: String] = ["A":".-",
                                        "B":"-...",
                                        "C":"-.-.",
                                        "D":"-..",
@@ -55,8 +55,15 @@ func getInputStringFromCommandLine() -> String {
     return checkedInputString
 }
 
-func encodeMesageToMorseCode(_ string : String) -> String {
+func encodeMesageToMorseCode() -> String {
     return("ToDo")
 }
 
-print(getInputStringFromCommandLine())
+func translateToMorse(symbol: String) -> String{
+    if let symbol = morseCodeTable[symbol]{
+        return symbol
+    }
+    return "???"
+}
+
+print(translateToMorse(symbol: "."))
