@@ -47,6 +47,8 @@ var morseCodeTable: [Character: String] = ["A":".-",
                                        " ":" "]
 
 
+
+
 func getInputStringFromCommandLine() -> String {
     let uncheckedInputString = readLine()
     let checkedInputString = uncheckedInputString ?? ""
@@ -63,7 +65,7 @@ func translateToMorse(symbol: Character) -> String{
     return "???"
 }
 
-func putSpaceBetweenEveryLetters(inputString: String) -> String {
+func translateLettersToMorseCode(_ inputString: String) -> String {
     var resultString = ""
     for index in inputString.characters.indices {
         resultString.append("\(translateToMorse(symbol:inputString[index])) ")
@@ -74,8 +76,8 @@ func putSpaceBetweenEveryLetters(inputString: String) -> String {
 
 func encodeMesageToMorseCode () -> String {
     let inputFromCommandLine = getInputStringFromCommandLine()
-    var inputWithSpacesBetweenLetters = putSpaceBetweenEveryLetters(inputString: inputFromCommandLine)
-    return inputWithSpacesBetweenLetters
+    let encodedMessage = translateLettersToMorseCode(inputFromCommandLine)
+    return encodedMessage
 }
 
 print(encodeMesageToMorseCode())
