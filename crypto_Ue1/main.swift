@@ -8,7 +8,7 @@
 
 import Foundation
 //Zwischen Buchstaben eine Leerstelle zwischen Wörtern zwei
-var morseCodeTable: [String: String] = ["A":".-",
+var morseCodeTable: [Character: String] = ["A":".-",
                                        "B":"-...",
                                        "C":"-.-.",
                                        "D":"-..",
@@ -43,7 +43,8 @@ var morseCodeTable: [String: String] = ["A":".-",
                                        "7":"--...",
                                        "8":"---..",
                                        "9":"----.",
-                                       "0":"-----"]
+                                       "0":"-----",
+                                       " ":" "]
 
 
 func getInputStringFromCommandLine() -> String {
@@ -52,18 +53,29 @@ func getInputStringFromCommandLine() -> String {
     if checkedInputString == "" {
         print("there is no input from the command line")
     }
-    return checkedInputString
+    return checkedInputString.uppercased()
 }
 
-func encodeMesageToMorseCode() -> String {
-    return("ToDo")
-}
-
-func translateToMorse(symbol: String) -> String{
+func translateToMorse(symbol: Character) -> String{
     if let symbol = morseCodeTable[symbol]{
         return symbol
     }
     return "???"
 }
 
-print(translateToMorse(symbol: "."))
+func putSpaceBetweenEveryLetters(inputString: String) -> String {
+    var resultString = ""
+    for index in inputString.characters.indices {
+        resultString.append("\(translateToMorse(symbol:inputString[index])) ")
+    }
+    return resultString
+}
+
+
+func encodeMesageToMorseCode () -> String {
+    let inputFromCommandLine = getInputStringFromCommandLine()
+    var inputWithSpacesBetweenLetters = putSpaceBetweenEveryLetters(inputString: inputFromCommandLine)
+    return inputWithSpacesBetweenLetters
+}
+
+print(encodeMesageToMorseCode())
