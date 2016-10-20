@@ -45,4 +45,4 @@ var moreCodeTable: [String: String] = ["A":".-",
                                        "9":"----.",
                                        "0":"-----"]
 
-print(moreCodeTable["T"])
+print(moreCodeTable["."])
