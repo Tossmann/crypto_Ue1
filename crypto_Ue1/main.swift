@@ -55,8 +55,22 @@ func getInputStringFromCommandLine() -> String {
     return checkedInputString
 }
 
-func encodeMesageToMorseCode(_ string : String) -> String {
-    return("ToDo")
+func putSpaceBetweenEveryLetters(inputString: String) -> String {
+    var resultString = ""
+    for index in inputString.characters.indices {
+        resultString.append("\(inputString[index]) ")
+    }
+    return resultString
 }
 
-print(getInputStringFromCommandLine())
+
+func encodeMesageToMorseCode () -> String {
+    let inputFromCommandLine = getInputStringFromCommandLine()
+    var inputWithSpacesBetweenLetters = putSpaceBetweenEveryLetters(inputString: inputFromCommandLine)
+    return inputWithSpacesBetweenLetters
+}
+
+print(encodeMesageToMorseCode())
+
+//print(getInputStringFromCommandLine())
+ 
