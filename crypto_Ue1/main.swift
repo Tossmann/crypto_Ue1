@@ -5,9 +5,15 @@
 //  Created by Trautmann, Phillip and Wendt, Ole on 20.10.16.
 //  Copyright © 2016 Trautmann, Phillip and Wendt, Ole. All rights reserved.
 //
-
+import AVFoundation
 import Foundation
-//Zwischen Buchstaben eine Leerstelle zwischen Wörtern zwei
+
+var shortbeep:AVAudioPlayer!
+var longBeep:AVAudioPlayer!
+
+var audioFilePath = Bundle.main.path(forResource: "music", ofType: "wav")
+let url1 = URL(fileURLWithPath: "/Volumes/ptrautma$/Arbeit/Xcode_Projects/crypto_Ue1/shortBeep.wav")
+let url2 = URL(fileURLWithPath: "/Volumes/ptrautma$/Arbeit/Xcode_Projects/crypto_Ue1/longBeep.wav")
 
 var morseCodeTable: [Character: String] = ["A":".-",
                                            "B":"-...",
@@ -45,7 +51,11 @@ var morseCodeTable: [Character: String] = ["A":".-",
                                            "8":"---..",
                                            "9":"----.",
                                            "0":"-----",
-                                           " ":" "]
+                                           " ":" ",
+                                           "Ä":".-.-",
+                                           "Ü":"..--",
+                                           "Ö":"---.",
+                                           "ß":"...--.."]
 
 var morseCodeTableReverse: [String: Character] = [".-":"A",
                                        "-...":"B",
@@ -83,7 +93,11 @@ var morseCodeTableReverse: [String: Character] = [".-":"A",
                                        "---..":"8",
                                        "----.":"9",
                                        "-----":"0",
-                                       " ":" "]
+                                       " ":" ",
+                                       ".-.-":"Ä",
+                                       "..--":"Ü",
+                                       "---.":"Ö",
+                                       "...--..":"ß"]
 
 
 func getInputStringFromCommandLine() -> String {
@@ -113,6 +127,17 @@ func translateLettersToMorseCode(_ inputString: String) -> String {
     var resultString = ""
     for index in inputString.characters.indices {
         resultString.append("\(translateToMorse(symbol:inputString[index])) ")
+        
+        let morseSequenz = translateToMorse(symbol:inputString[index])
+
+        for i in morseSequenz.characters.indices{
+        if morseSequenz[i] == "."{
+            playShortBeep()
+        }
+        if morseSequenz[i] == "-"{
+            playLongBeep()
+        }
+        }
     }
     return resultString
 }
@@ -161,4 +186,26 @@ func main() {
     }
 }
 
+func playShortBeep(){
+    do {
+        let sound = try AVAudioPlayer(contentsOf: url1)
+        shortbeep = sound
+        sound.play()
+        usleep(300000)
+    } catch {
+        print("file not found")
+    }
+}
+
+func playLongBeep(){
+    do {
+        let sound = try AVAudioPlayer(contentsOf: url2)
+        longBeep = sound
+        sound.play()
+        usleep(300000)
+    } catch {
+        print("file not found")
+    }
+}
 main()
+
