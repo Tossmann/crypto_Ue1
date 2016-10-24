@@ -127,7 +127,6 @@ func translateLettersToMorseCode(_ inputString: String) -> String {
     var resultString = ""
     for index in inputString.characters.indices {
         resultString.append("\(translateToMorse(symbol:inputString[index])) ")
-        
         let morseSequenz = translateToMorse(symbol:inputString[index])
 
         for i in morseSequenz.characters.indices{
@@ -138,15 +137,16 @@ func translateLettersToMorseCode(_ inputString: String) -> String {
             playLongBeep()
         }
         }
+        usleep(100000)
     }
     return resultString
 }
 
 func translateMorseCodeToLetters(_ inputString: String) -> String {
     var resultString = ""
-    var words = inputString.components(separatedBy: "  ")
+    let words = inputString.components(separatedBy: "  ")
     for currentWord in words {
-        var componentsOfFirstWord = currentWord.components(separatedBy: " ")
+        let componentsOfFirstWord = currentWord.components(separatedBy: " ")
         for currentLetter in componentsOfFirstWord {
             if currentLetter.characters.count > 0 {
                 resultString.append(translateOneLetter(symbol:currentLetter))
@@ -191,7 +191,7 @@ func playShortBeep(){
         let sound = try AVAudioPlayer(contentsOf: url1)
         shortbeep = sound
         sound.play()
-        usleep(300000)
+        usleep(200000)
     } catch {
         print("file not found")
     }
@@ -202,7 +202,7 @@ func playLongBeep(){
         let sound = try AVAudioPlayer(contentsOf: url2)
         longBeep = sound
         sound.play()
-        usleep(300000)
+        usleep(200000)
     } catch {
         print("file not found")
     }
