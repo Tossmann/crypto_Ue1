@@ -12,8 +12,13 @@ var shortbeep:AVAudioPlayer!
 var longBeep:AVAudioPlayer!
 
 var audioFilePath = Bundle.main.path(forResource: "music", ofType: "wav")
-let url1 = URL(fileURLWithPath: "/Volumes/ptrautma$/Arbeit/Xcode_Projects/crypto_Ue1/shortBeep.wav")
-let url2 = URL(fileURLWithPath: "/Volumes/ptrautma$/Arbeit/Xcode_Projects/crypto_Ue1/longBeep.wav")
+let url1 = URL(fileURLWithPath: "shortBeep.wav")
+let url2 = URL(fileURLWithPath: "longBeep.wav")
+
+let fileManager = FileManager.default
+var path = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
+path = path.appendingPathComponent("/crypto_Ue1_TrautmannWendt/")
+print(path)
 
 var morseCodeTable: [Character: String] = ["A":".-",
                                            "B":"-...",
@@ -172,6 +177,7 @@ func decodeSecretMessage () -> String{
 }
 
 func main() {
+    print("For using sound output please copy project folder to '/Documents/'")
     var close = false;
     while (!close) {
         print("Your Options: 'encrypt', 'decrypt' or 'exit'")
@@ -188,7 +194,7 @@ func main() {
 
 func playShortBeep(){
     do {
-        let sound = try AVAudioPlayer(contentsOf: url1)
+        let sound = try AVAudioPlayer(contentsOf: path.appendingPathComponent("shortBeep.wav"))
         shortbeep = sound
         sound.play()
         usleep(200000)
@@ -199,7 +205,7 @@ func playShortBeep(){
 
 func playLongBeep(){
     do {
-        let sound = try AVAudioPlayer(contentsOf: url2)
+        let sound = try AVAudioPlayer(contentsOf: path.appendingPathComponent("longBeep.wav"))
         longBeep = sound
         sound.play()
         usleep(200000)
